@@ -18,7 +18,7 @@
     "cpus": 4,
     "memory": 8192,
     "disk_size": 60000,
-    "net_device": "virtio",
+    
     "floppy_files": ["./preseed/preseed.cfg"],
 
     "boot_command": [
