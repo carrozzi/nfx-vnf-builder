@@ -1,5 +1,6 @@
 # Cache objects
 packer_cache/
+output-nfx-vnf/
 
 # Crash log
 crash.log

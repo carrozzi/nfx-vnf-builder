@@ -53,6 +53,6 @@
 	     "scripts/base.sh",
 	     "scripts/zerodisk.sh"
      ],
-     "execute_command": "echo 'Vnfuser1' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
+     "execute_command": "sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
     }]
 }
