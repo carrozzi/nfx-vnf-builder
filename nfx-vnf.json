@@ -1,0 +1,58 @@
+{
+  "builders": [{
+    "name": "nfx-vnf",
+    "vm_name": "nfx-vnf.qcow2",
+
+     "headless": true,
+      "type": "qemu",
+      "accelerator": "hvf",
+      "vnc_bind_address": "0.0.0.0",
+      "disk_interface": "virtio-scsi",
+
+    "iso_url": "http://cdimage.ubuntu.com/ubuntu/releases/bionic/release/ubuntu-18.04.6-server-amd64.iso",
+    "iso_checksum": "f5cbb8104348f0097a8e513b10173a07dbc6684595e331cb06f93f385d0aecf6",
+
+    "ssh_username": "vnfuser",
+    "ssh_password": "Vnfuser1",
+    "ssh_timeout": "15m",
+    "cpus": 4,
+    "memory": 8192,
+    "disk_size": 60000,
+    "net_device": "virtio",
+    "floppy_files": ["./preseed/preseed.cfg"],
+
+    "boot_command": [
+    "<enter><wait><f6><wait><esc><wait>",
+    "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+    "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+    "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+    "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+    "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+    "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+    "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+    "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+    "<bs><bs><bs>",
+    "/install/vmlinuz",
+    " initrd=/install/initrd.gz",
+    " priority=critical",
+    " locale=en_US",
+    " file=/media/newer.cfg",
+    "<enter>"
+  ],
+
+    "http_directory": "preseed",
+    "shutdown_command": "echo 'shutdown -P now' > /tmp/shutdown.sh; echo 'Vnfuser1'|sudo -S sh '/tmp/shutdown.sh'",
+
+    "format": "qcow2"
+
+  }],
+  "provisioners": [
+    {
+     "type": "shell",
+     "scripts": [
+	     "scripts/base.sh",
+	     "scripts/zerodisk.sh"
+     ],
+     "execute_command": "echo 'Vnfuser1' | sudo -S sh -c '{{ .Vars }} {{ .Path }}'"
+    }]
+}
