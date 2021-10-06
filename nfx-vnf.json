@@ -36,7 +36,7 @@
     " initrd=/install/initrd.gz",
     " priority=critical",
     " locale=en_US",
-    " file=/media/newer.cfg",
+    " file=/media/preseed.cfg",
     "<enter>"
   ],
 
